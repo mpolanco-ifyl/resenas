@@ -18,8 +18,14 @@ if uploaded_file is not None:
         # Aquí se podrían utilizar diferentes criterios para identificar las citas importantes, como la longitud de la oración o la presencia de palabras clave
         important_quotes.append(book_sentences[i])
 
-    # Crear una reseña resumida del libro basada en las citas importantes
-    review_text = f"El libro cargado es una obra que explora temas como [tema 1], [tema 2] y [tema 3]. A lo largo del libro, el autor utiliza una serie de citas impactantes que ilustran la profundidad y la complejidad de estos temas. Por ejemplo, una cita importante del libro dice: '{important_quotes[0]}'. Otra cita interesante del libro es: '{important_quotes[1]}'. En general, el libro es una lectura interesante y bien escrita que ofrece una visión única sobre [tema 1], [tema 2] y [tema 3]."
+    # Crear una reseña del libro basada en las citas importantes
+    intro_text = "El libro que se ha cargado es una obra que aborda varios temas importantes, incluyendo [tema 1], [tema 2] y [tema 3]. A lo largo del libro, el autor utiliza una serie de citas impactantes que ilustran la profundidad y la complejidad de estos temas. En este ensayo, se explorarán algunas de las citas más importantes del libro y se discutirá su relevancia y significado para los temas tratados."
+
+    body_text = "Una de las citas más impactantes del libro dice: '{}'. Esta cita es importante porque ilustra claramente el [tema 1] que el autor está tratando de transmitir. Otra cita interesante del libro es: '{}'. Esta cita es importante porque muestra la conexión entre [tema 2] y [tema 3] en la obra. Además, la cita [cita 3] es un ejemplo claro de [tema 1]."
+
+    conclusion_text = "En general, el libro es una lectura interesante y bien escrita que ofrece una visión única sobre [tema 1], [tema 2] y [tema 3]. Las citas seleccionadas para este ensayo ilustran la profundidad y la complejidad de los temas tratados en el libro y muestran el talento del autor para transmitir sus ideas de manera efectiva."
 
     # Imprimir la reseña del libro
-    st.write(review_text)
+    st.write(intro_text)
+    st.write(body_text)
+    st.write(conclusion_text)

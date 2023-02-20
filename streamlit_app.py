@@ -1,25 +1,25 @@
 import streamlit as st
-from textblob import TextBlob
+import nltk
+nltk.download('punkt')
 
-st.title("Generador de evaluaciones de libros")
+st.title("Generador de reseñas de libros")
 
-uploaded_file = st.file_uploader("Cargar archivo de texto", type="txt")
+# Cargar el archivo de texto del libro
+uploaded_file = st.file_uploader("Cargar libro en formato TXT", type=["txt"])
 if uploaded_file is not None:
-    # Leer el texto del libro cargado
-    text = uploaded_file.read().decode("utf-8")
-    # Analizar el sentimiento del texto del libro utilizando TextBlob
-    blob = TextBlob(text)
-    sentiment = blob.sentiment.polarity
-    # Citas del libro
-    quotes = ["La literatura es el arte de escribir algo que se lee dos veces; y la poesía, algo que se lee una y otra vez.",
-              "Los libros siempre habían sido para mí una ventana a lugares maravillosos.",
-              "En el futuro, todo el mundo será mundialmente famoso durante quince minutos."]
-    # Generar una evaluación larga del libro
-    if sentiment > 0:
-        evaluation = f"Este libro es una obra maestra. La prosa es hermosa y las historias son profundas. Desde la primera página, me sentí inmerso en el mundo que el autor había creado. Los personajes son complejos y bien desarrollados, y su lucha contra los conflictos internos y externos me dejó con una gran impresión. La trama es emocionante y llena de giros y vueltas que me mantuvieron enganchado hasta el final. Como dijo Andy Warhol: '{quotes[2]}', y este libro seguramente se mantendrá en mi mente durante mucho tiempo."
-    elif sentiment < 0:
-        evaluation = f"Lamentablemente, este libro no me gustó. La prosa es confusa y las historias son poco interesantes. Me costó mucho conectar con los personajes, y su lucha contra los conflictos internos y externos me pareció aburrida. La trama se sintió lenta y predecible, y no pude evitar sentir que estaba perdiendo el tiempo al leer este libro. Como dijo Oscar Wilde: '{quotes[0]}', y esta evaluación es un reflejo de mi decepción."
-    else:
-        evaluation = f"Este libro es interesante pero no sobresaliente. La prosa es sólida y las historias son intrigantes, pero no me dejaron una impresión duradera. Los personajes son bien desarrollados, pero no pude conectarme con ellos de la manera que esperaba. La trama es emocionante en algunos momentos, pero en otros se siente lenta y predecible. Como dijo Marcel Proust: '{quotes[1]}', y esta evaluación refleja mi sentimiento neutral hacia este libro."
-    # Mostrar la evaluación generada al usuario
-    st.write(evaluation)
+    book_text = uploaded_file.read().decode("utf-8")
+
+    # Tokenizar el texto del libro en oraciones
+    book_sentences = nltk.sent_tokenize(book_text)
+
+    # Extraer las 15 citas más importantes del libro
+    important_quotes = []
+    for i in range(15):
+        # Aquí se podrían utilizar diferentes criterios para identificar las citas importantes, como la longitud de la oración o la presencia de palabras clave
+        important_quotes.append(book_sentences[i])
+
+    # Crear una reseña resumida del libro basada en las citas importantes
+    review_text = f"El libro cargado es una obra que explora temas como [tema 1], [tema 2] y [tema 3]. A lo largo del libro, el autor utiliza una serie de citas impactantes que ilustran la profundidad y la complejidad de estos temas. Por ejemplo, una cita importante del libro dice: '{important_quotes[0]}'. Otra cita interesante del libro es: '{important_quotes[1]}'. En general, el libro es una lectura interesante y bien escrita que ofrece una visión única sobre [tema 1], [tema 2] y [tema 3]."
+
+    # Imprimir la reseña del libro
+    st.write(review_text)

@@ -1,7 +1,5 @@
-import spacy
 import random
-
-nlp = spacy.load("es_core_news_sm")
+import re
 
 # Texto del libro de ejemplo
 texto_libro = """
@@ -9,20 +7,17 @@ texto_libro = """
 
 """
 
-# Cargar el texto del libro
-doc = nlp(texto_libro)
-
 # Extraer las citas del libro
-citas = [str(sent) for sent in doc.sents if "“" in sent.text]
+citas = re.findall(r'“[^”]+”', texto_libro)
 
 # Generar la introducción
-introduccion = f"El libro {doc[:10]} es un libro interesante que cubre varios temas importantes. "
+introduccion = f"El libro es un texto interesante que cubre varios temas importantes. "
 
 # Generar el cuerpo del ensayo
 cuerpo = "En este ensayo, se explorarán algunos de los temas clave del libro a través de las siguientes citas:\n\n"
 citas_seleccionadas = random.sample(citas, 15)
 for i, cita in enumerate(citas_seleccionadas):
-    cuerpo += f"{i+1}. \"{cita}\"\n"
+    cuerpo += f"{i+1}. {cita}\n"
 
 cuerpo += "Esas citas destacan la importancia de varios temas clave del libro, como la exploración del pasado, la naturaleza humana y la lucha por la libertad. "
 
